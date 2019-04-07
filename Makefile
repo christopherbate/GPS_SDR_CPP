@@ -31,4 +31,4 @@ $(X86_BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CC) $(CXX_FLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BIN_DIR) $(X86_BUILD_DIR)all: 
+	rm -rf $(BIN_DIR) $(X86_BUILD_DIR) 

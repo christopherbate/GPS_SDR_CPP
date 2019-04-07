@@ -3,12 +3,14 @@
 
 #include <chrono>
 #include <fstream>
+#include <memory>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 
 class Log {
   private:
-    std::string m_logFilename = "mznt_log.txt";
+    std::string m_logFilename = "sdr_log.txt";
     bool m_writeOn;
 
     Log(const std::string& filename);
@@ -21,15 +23,18 @@ class Log {
 
     void Msg(const std::string& msg);
     void Error(const std::string& err);
+    void LogData(const std::string& logName, double data);
 
     static void MSG(const std::string& msg) { Log::GetLog()->Msg(msg); }
 
     static void ERR(const std::string& msg) { Log::GetLog()->Error(msg); }
 
+    static void LOG_DATA(const std::string& logName, double data) {
+        Log::GetLog()->LogData(logName, data);
+    }
+
     static Log* GetLog() {
-        static std::time_t result = std::time(nullptr);
-        static Log log("log.txt" +
-                       std::string(std::asctime(std::localtime(&result))));
+        static Log log("log.txt");
         return &log;
     }
 };
